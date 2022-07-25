@@ -43,7 +43,6 @@ you also made the principal "*" for selecting all.
 
 upload input library 
 
-https://react-dropzone.js.org/
 
 rec.body
 rec.files when connected to multer

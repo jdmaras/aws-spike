@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
+import Uploader from '../Uploader/Uploader';
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
@@ -19,9 +20,11 @@ function LandingPage() {
 
       <div className="grid">
         <div className="grid-col grid-col_8">
-          <form action="" encType='multipart/form-data'>
+
+       
+          {/* <form action="" encType='multipart/form-data'>
             <input type="file" />
-          </form>
+          </form> */}
           <p>
           
           </p>

@@ -66,34 +66,41 @@ const storage = multer.memoryStorage()
 // you would pass in fileFilter after storage if you wanted to filter by certain file types
 // uuid-originalname
 // pass in 'storage'                limits this makes it whatever kb limit you set as / and only 1 file
-const upload = multer({ storage, limits: {fileSize: 100000000, files: 1} });
+const upload = multer({ storage, limits: {fileSize: 1000000000, files: 1} });
 app.post("/upload", upload.array("file"), async (req, res) => {
+  console.log('this is the post endpoint', req.files[0])
+  try{
     const file = req.files[0]
     const result = await s3Uploadv2(file);
   res.json({ status: "success", result });
+}
+catch(error) {
+  console.log(error)
+  res.sendStatus(500);
+}
 });
 
 //this is middleware /  instanceof = is this a multer error? 
-app.use((error, req, res, next) => {
-      //
-  if(error instanceof multer.MulterError){
-    if(error.code === "LIMIT_FILE_SIZE"){
-      return res.status(400).json({
-        message: "file size is too large, big dawg"
-      })
-    }
-    if(error.code === "LIMIT_FILE_COUNT"){
-      return res.status(400).json({
-        message: "file limit reached, big dawg"
-      })
-    }
+// app.use((error, req, res, next) => {
+//       //
+//   if(error instanceof multer.MulterError){
+//     if(error.code === "LIMIT_FILE_SIZE"){
+//       return res.status(400).json({
+//         message: "file size is too large, big dawg"
+//       })
+//     }
+//     if(error.code === "LIMIT_FILE_COUNT"){
+//       return res.status(400).json({
+//         message: "file limit reached, big dawg"
+//       })
+//     }
     // if(error.code === "LIMIT_UNEXPECTED_FILE"){
     //   return res.status(400).json({
     //     message: "file must be a video, big dawg"
     //   })
     // }
-  }
-})
+//   }
+// })
 
 
 
